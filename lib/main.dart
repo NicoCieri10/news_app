@@ -1,3 +1,4 @@
+import 'package:appsize/appsize.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/src/pages/tabs_page.dart';
 import 'package:news_app/src/services/news_service.dart';
@@ -15,12 +16,25 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => NewsService()),
       ],
-      child: MaterialApp(
-        title: 'Material App',
-        theme: myTheme,
-        debugShowCheckedModeBanner: false,
-        home: const TabsPage(),
+      child: AppSize.child(
+        child: const App(),
       ),
+    );
+  }
+}
+
+class App extends StatelessWidget {
+  const App({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Material App',
+      theme: myTheme,
+      debugShowCheckedModeBanner: false,
+      home: const TabsPage(),
     );
   }
 }
