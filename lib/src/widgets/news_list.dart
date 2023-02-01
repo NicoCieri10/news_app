@@ -42,7 +42,67 @@ class _News extends StatelessWidget {
         _ImageCard(
           news,
         ),
+        _BodyCard(
+          news,
+        ),
+        _ButtonsCard(),
+        SizedBox(
+          height: 10.sp,
+        ),
+        const Divider(
+          color: Colors.white,
+        ),
       ],
+    );
+  }
+}
+
+class _ButtonsCard extends StatelessWidget {
+  const _ButtonsCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: myTheme.colorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.sp),
+            ),
+            child: const Icon(Icons.star_border),
+          ),
+          SizedBox(
+            width: 10.sp,
+          ),
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.sp),
+            ),
+            child: const Icon(Icons.more),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BodyCard extends StatelessWidget {
+  const _BodyCard(this.news);
+
+  final Article news;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.sp),
+      child: Text(
+        (news.description != null) ? news.description! : '',
+      ),
     );
   }
 }
@@ -54,8 +114,26 @@ class _ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Holanda'),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 15.sp),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30.sp),
+          bottomRight: Radius.circular(30.sp),
+          topLeft: Radius.circular(30.sp),
+          topRight: Radius.circular(30.sp),
+        ),
+        child: Container(
+          child: (news.urlToImage != null)
+              ? FadeInImage(
+                  placeholder: const AssetImage('assets/img/giphy.gif'),
+                  image: NetworkImage(news.urlToImage!),
+                )
+              : const Image(
+                  image: AssetImage('assets/img/no-image.png'),
+                ),
+        ),
+      ),
     );
   }
 }
