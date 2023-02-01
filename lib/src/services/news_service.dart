@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:news_app/src/models/category_model.dart';
 import 'package:news_app/src/models/news_models.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,6 +9,37 @@ const _apiKey = '4af5ccd83b9841b79ae063eb12116fe4';
 
 class NewsService with ChangeNotifier {
   List<Article> headLines = [];
+
+  List<Category> categories = [
+    Category(
+      FontAwesomeIcons.building,
+      'business',
+    ),
+    Category(
+      FontAwesomeIcons.tv,
+      'entertainment',
+    ),
+    Category(
+      FontAwesomeIcons.addressCard,
+      'general',
+    ),
+    Category(
+      FontAwesomeIcons.headSideVirus,
+      'health',
+    ),
+    Category(
+      FontAwesomeIcons.vials,
+      'science',
+    ),
+    Category(
+      FontAwesomeIcons.football,
+      'sports',
+    ),
+    Category(
+      FontAwesomeIcons.memory,
+      'technology',
+    ),
+  ];
 
   NewsService() {
     getTopHeadlines();
