@@ -11,6 +11,7 @@ class NewsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: news.length,
       itemBuilder: (BuildContext context, int index) {
         return _News(news: news[index], index: index);
