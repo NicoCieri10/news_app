@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/src/models/category_model.dart';
 import 'package:news_app/src/services/news_service.dart';
 import 'package:news_app/src/theme/theme.dart';
+import 'package:news_app/src/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class Tab2Page extends StatelessWidget {
@@ -10,11 +11,25 @@ class Tab2Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context);
+
     return SafeArea(
       child: Scaffold(
         body: Column(
-          children: const [
-            _CategoriesList(),
+          children: [
+            const _CategoriesList(),
+            if (!newsService.isLoading)
+              Expanded(
+                child: (newsService.getArticlesSelectedCategory == null)
+                    ? const Center(child: CircularProgressIndicator())
+                    : NewsList(newsService.getArticlesSelectedCategory!),
+              ),
+            if (newsService.isLoading)
+              const Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
           ],
         ),
       ),

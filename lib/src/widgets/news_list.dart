@@ -45,7 +45,7 @@ class _News extends StatelessWidget {
         _BodyCard(
           news,
         ),
-        _ButtonsCard(),
+        const _ButtonsCard(),
         SizedBox(
           height: 10.sp,
         ),
@@ -58,35 +58,33 @@ class _News extends StatelessWidget {
 }
 
 class _ButtonsCard extends StatelessWidget {
-  const _ButtonsCard({super.key});
+  const _ButtonsCard();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RawMaterialButton(
-            onPressed: () {},
-            fillColor: myTheme.colorScheme.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.sp),
-            ),
-            child: const Icon(Icons.star_border),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RawMaterialButton(
+          onPressed: () {},
+          fillColor: myTheme.colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.sp),
           ),
-          SizedBox(
-            width: 10.sp,
+          child: const Icon(Icons.star_border),
+        ),
+        SizedBox(
+          width: 10.sp,
+        ),
+        RawMaterialButton(
+          onPressed: () {},
+          fillColor: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.sp),
           ),
-          RawMaterialButton(
-            onPressed: () {},
-            fillColor: Colors.blue,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.sp),
-            ),
-            child: const Icon(Icons.more),
-          ),
-        ],
-      ),
+          child: const Icon(Icons.more),
+        ),
+      ],
     );
   }
 }

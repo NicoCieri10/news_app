@@ -11,35 +11,16 @@ class NewsService with ChangeNotifier {
   List<Article> headLines = [];
   String _selectedCategory = 'business';
 
+  bool _isLoading = true;
+
   List<Category> categories = [
-    Category(
-      FontAwesomeIcons.building,
-      'business',
-    ),
-    Category(
-      FontAwesomeIcons.tv,
-      'entertainment',
-    ),
-    Category(
-      FontAwesomeIcons.addressCard,
-      'general',
-    ),
-    Category(
-      FontAwesomeIcons.headSideVirus,
-      'health',
-    ),
-    Category(
-      FontAwesomeIcons.vials,
-      'science',
-    ),
-    Category(
-      FontAwesomeIcons.football,
-      'sports',
-    ),
-    Category(
-      FontAwesomeIcons.memory,
-      'technology',
-    ),
+    Category(FontAwesomeIcons.building, 'business'),
+    Category(FontAwesomeIcons.tv, 'entertainment'),
+    Category(FontAwesomeIcons.addressCard, 'general'),
+    Category(FontAwesomeIcons.headSideVirus, 'health'),
+    Category(FontAwesomeIcons.vials, 'science'),
+    Category(FontAwesomeIcons.football, 'sports'),
+    Category(FontAwesomeIcons.memory, 'technology'),
   ];
 
   Map<String, List<Article>> categoryArticles = {};
@@ -49,18 +30,26 @@ class NewsService with ChangeNotifier {
     for (var item in categories) {
       categoryArticles[item.name] = [];
     }
+
+    getArticlesByCategory(_selectedCategory);
   }
+
+  bool get isLoading => _isLoading;
 
   get selectedCategory => _selectedCategory;
   set selectedCategory(value) {
     _selectedCategory = value;
 
+    _isLoading = true;
+
     getArticlesByCategory(value);
     notifyListeners();
   }
 
-  List<Article>? get getArticlesSelectedCategory =>
-      categoryArticles[selectedCategory];
+  List<Article>? get getArticlesSelectedCategory {
+    getArticlesByCategory(_selectedCategory);
+    return categoryArticles[selectedCategory];
+  }
 
   getTopHeadlines() async {
     const url = '$_urlNews/top-headlines?apiKey=$_apiKey&country=ar';
@@ -76,6 +65,7 @@ class NewsService with ChangeNotifier {
     final cArticles = categoryArticles[category] ?? [];
 
     if (cArticles.isNotEmpty) {
+      _isLoading = false;
       return cArticles;
     }
 
@@ -87,6 +77,7 @@ class NewsService with ChangeNotifier {
 
     cArticles.addAll(newsResponse.articles);
 
+    _isLoading = false;
     notifyListeners();
   }
 }
