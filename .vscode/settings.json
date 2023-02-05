@@ -1,0 +1,5 @@
+{
+    "editor.wordWrap": "wordWrapColumn",
+    "diffEditor.wordWrap": "inherit",
+    "editor.wordWrapColumn": 160
+}
